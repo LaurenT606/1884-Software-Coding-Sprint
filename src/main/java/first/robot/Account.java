@@ -1,6 +1,9 @@
 package first.robot;
 
+import java.util.ArrayList;
+
 public class Account {
+
     private String username;
 
     /**
@@ -9,8 +12,18 @@ public class Account {
      * with 1, to requestedName until an available username is found,
      * as described in part (a).
      */
-    public Account(String requestedName) {
 
+
+    public Account(String requestedName) {
+        if (isAvailable(requestedName)) {
+           username = requestedName;
+        } else {
+            int num = 1;
+            while (!isAvailable(requestedName + num)) {
+                num++;
+            }
+            username = requestedName + num;
+        }
     }
 
     /**
@@ -18,7 +31,7 @@ public class Account {
      * returns false otherwise.
      */
     public static boolean isAvailable(String str)
-    { /* implementation not shown */ }
+    { return true;/* implementation not shown */ }
 
     /**
      * Returns a shortened version of username with each hyphen ("-")
@@ -29,6 +42,23 @@ public class Account {
      * Postcondition: username is unchanged.
      */
     public String getShortenedName() {
+        ArrayList<String> name = new ArrayList<>();
+        int index = 0;
+        while (index < username.length()) {
+            name.add(Character.toString(username.charAt(index)));
+            index++;
+        }
 
+        index = 0;
+        while (index < username.length()) {
+            if (name.get(index).equals("-")) {
+                if (index>0){
+                    name.set(index-1, "-");
+                }
+            }
+            index++;
+        }
+
+        return String.join("", name).replaceAll("-", "");
     }
 }
