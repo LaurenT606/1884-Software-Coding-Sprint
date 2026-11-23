@@ -11,6 +11,20 @@ public class Account {
      */
     public Account(String requestedName) {
 
+        int counter = 0;
+        if (isAvailable(requestedName)) {
+            username = requestedName;
+
+        } else {
+            while(!isAvailable(requestedName+counter)) {
+                counter++;
+            }
+
+            username = requestedName + counter;
+        }
+
+        //Aarav helped with the while loop
+
     }
 
     /**
@@ -18,7 +32,9 @@ public class Account {
      * returns false otherwise.
      */
     public static boolean isAvailable(String str)
-    { /* implementation not shown */ }
+    { /* implementation not shown */
+        return false;//ts just so it wouldnt give an error
+    }
 
     /**
      * Returns a shortened version of username with each hyphen ("-")
@@ -28,7 +44,16 @@ public class Account {
      * username.length() >= 2
      * Postcondition: username is unchanged.
      */
-    public String getShortenedName() {
+    public String getShortenedName(String nameToBeShortened) {
+        String shortenedName = "";
+        int hyphenLocator;
+        for (int i = 0; i < nameToBeShortened.length(); i++) {
+            if (nameToBeShortened.charAt(i) == '-') {
+                hyphenLocator = i;
+                shortenedName.concat(nameToBeShortened.substring(0,i-1));
+            }
+        }
 
+        return shortenedName;
     }
 }
